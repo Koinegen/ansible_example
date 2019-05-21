@@ -1,0 +1,27 @@
+---
+    - name: copy file 
+      copy: 
+        src: sl_script.zip 
+        dest: /root/sl_script.zip
+        owner: root 
+    - name: create /root/paravozik
+      file:
+        path: /root/paravozik
+        state: directory
+        owner: root 
+        group: root
+        mode: 0755
+    - name: unzip paravozik
+      unarchive: 
+        src: "/root/sl_script.zip"
+        copy: no
+        dest: /root/paravozik
+    - name: +x paravozik
+      file:
+        path: /root/paravozik/sl_script.sh
+        state: file
+        owner: root
+        group: root
+        mode: 0755
+    - name: start paravozik
+      shell: /root/paravozik/sl_script.sh
